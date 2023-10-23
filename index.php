@@ -3,7 +3,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $input_ext = "jpg";
-$output_postfix = "_output.webp";
+$output_postfix = "_compressed.webp";
+$qualityLevel = 20;
 
 
 if (!function_exists('dd')) {
@@ -35,7 +36,7 @@ foreach ($imageFiles as $imageFile) {
     $outputFileName = str_replace(".{$input_ext}", $output_postfix, $imageFile);
 
     // Construct and execute the FFmpeg command
-    $ffmpegCommand = "ffmpeg -y -i $inputFileName -c:v libwebp -q:v 60 $outputFileName";
+    $ffmpegCommand = "ffmpeg -y -i {$inputFileName} -c:v libwebp -q:v {$qualityLevel} {$outputFileName}";
    
     p($ffmpegCommand);
     $output = shell_exec($ffmpegCommand);
