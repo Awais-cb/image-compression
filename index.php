@@ -2,9 +2,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$input_ext = "jpg";
+$inputExtentions = ['jpg', 'jpeg', 'png', 'PNG'];
 $output_postfix = "_compressed.webp";
-$qualityLevel = 20;
+$qualityLevel = 70;
 
 
 if (!function_exists('dd')) {
@@ -26,23 +26,22 @@ if (!function_exists('p')) {
     }
 }
 
+foreach ($inputExtentions as $key => $inputExtention) {
+    // Get a list of all image files in the current folder
+    $imageFiles = glob("*.{$inputExtention}");
+    // Iterate through the image files and run FFmpeg command
+    foreach ($imageFiles as $imageFile) {
+        $inputFileName = $imageFile;
+        $outputFileName = str_replace(".{$inputExtention}", $output_postfix, $imageFile);
 
-// Get a list of all image files in the current folder
-$imageFiles = glob("*.{$input_ext}");
-// dd($imageFiles);
-// Iterate through the image files and run FFmpeg command
-foreach ($imageFiles as $imageFile) {
-    $inputFileName = $imageFile;
-    $outputFileName = str_replace(".{$input_ext}", $output_postfix, $imageFile);
-
-    // Construct and execute the FFmpeg command
-    $ffmpegCommand = "ffmpeg -y -i {$inputFileName} -c:v libwebp -q:v {$qualityLevel} {$outputFileName}";
-   
-    p($ffmpegCommand);
-    $output = shell_exec($ffmpegCommand);
-    p($output);
-    p("Converted $inputFileName to $outputFileName");
-    p("------------------------------------------------");
+        // Construct and execute the FFmpeg command
+        $ffmpegCommand = "ffmpeg -y -i {$inputFileName} -c:v libwebp -q:v {$qualityLevel} {$outputFileName}";
+    
+        p($ffmpegCommand);
+        $output = shell_exec($ffmpegCommand);
+        p($output);
+        p("Converted $inputFileName to $outputFileName");
+        p("------------------------------------------------");
+    }
 }
-
 ?>
