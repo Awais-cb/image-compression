@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $inputExtentions = ['jpg', 'jpeg', 'png', 'PNG'];
-$output_postfix = "_compressed.webp";
+$outputPostfix = "_compressed.webp";
 $qualityLevel = 70;
 
 
@@ -32,7 +32,7 @@ foreach ($inputExtentions as $key => $inputExtention) {
     // Iterate through the image files and run FFmpeg command
     foreach ($imageFiles as $imageFile) {
         $inputFileName = $imageFile;
-        $outputFileName = str_replace(".{$inputExtention}", $output_postfix, $imageFile);
+        $outputFileName = str_replace(".{$inputExtention}", $outputPostfix, $imageFile);
 
         // Construct and execute the FFmpeg command
         $ffmpegCommand = "ffmpeg -y -i {$inputFileName} -c:v libwebp -q:v {$qualityLevel} {$outputFileName}";
