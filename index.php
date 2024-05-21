@@ -2,9 +2,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$inputExtentions = ['jpg', 'jpeg', 'png', 'PNG'];
+$inputExtentions = ['jpg', 'jpeg', 'png', 'PNG', 'webp'];
 $outputPostfix = "_compressed.webp";
-$qualityLevel = 70;
+$qualityLevel = 100;
 $inputPath = "original/";
 $outputPath = "compressed/";
 
