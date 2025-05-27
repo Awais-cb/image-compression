@@ -1,36 +1,17 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
+require_once 'functions.php';
 
 $inputExtentions = ['jpg', 'jpeg', 'JPEG', 'png', 'PNG', 'webp'];
 $outputPostfix = "_compressed.webp";
 $qualityLevel = 80;
-$inputPath = "original/";
-$outputPath = "compressed/";
 
-
-if (!function_exists('dd')) {
-    function dd($d)
-    {
-        die('<pre>' . print_r($d, 1));
-    }
-}
-
-if (!function_exists('p')) {
-    function p($d, $log=true)
-    {
-        if ($log) {
-            error_log(print_r($d, 1));
-        }
-        echo '<pre>';
-        print_r($d);
-        echo '</pre>';
-    }
-}
+$inputPath = "images/original/";
+$outputPath = "images/converted/";
 
 foreach ($inputExtentions as $key => $inputExtention) {
     // Get a list of all image files in the current folder
-    $imageFiles = glob("original/*.{$inputExtention}");
+    $imageFiles = glob("{$inputPath}*.{$inputExtention}");
     // Iterate through the image files and run FFmpeg command
     foreach ($imageFiles as $imageFile) {
         
