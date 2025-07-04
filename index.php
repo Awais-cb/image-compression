@@ -3,7 +3,8 @@
 require_once 'functions.php';
 
 $inputExtentions = ['jpg', 'jpeg', 'JPEG', 'png', 'PNG', 'webp'];
-$outputPostfix = "_compressed.webp";
+// $outputPostfix = "_compressed.webp";
+$outputPostfix = "_compressed.jpeg";
 $qualityLevel = 80;
 
 $inputPath = "images/original/";
@@ -21,6 +22,7 @@ foreach ($inputExtentions as $key => $inputExtention) {
         
         $outputFileName = str_replace(".{$inputExtention}", $outputPostfix, $fileName);
         
+        // WEBP CONVERTION
         // $ffmpegCommand = "ffmpeg -y -noautorotate -i {$inputFileName} -c:v libwebp -q:v {$qualityLevel} {$outputPath}{$outputFileName}";
         // forcing roating to specific angle
         // Value	Rotation
@@ -28,7 +30,11 @@ foreach ($inputExtentions as $key => $inputExtention) {
         // 1	90° counter-clockwise
         // 2	90° clockwise and flip
         // 3	90° counter + flip
-        $ffmpegCommand = "ffmpeg -y -i {$inputFileName} -vf \"transpose=1\" -c:v libwebp -q:v {$qualityLevel} {$outputPath}{$outputFileName}";
+        // $ffmpegCommand = "ffmpeg -y -i {$inputFileName} -vf \"transpose=1\" -c:v libwebp -q:v {$qualityLevel} {$outputPath}{$outputFileName}";
+        
+        // COMPRESSION ONLY
+        $ffmpegCommand = "ffmpeg -y -i {$inputFileName} -qscale:v 20 {$outputPath}{$outputFileName}";
+        
 
     
         p($ffmpegCommand);
